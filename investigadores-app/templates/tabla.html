@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registros de Investigadores</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; border: 1px solid #ccc; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Investigadores Registrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>CURP</th>
+                <th>Correo</th>
+                <th>Institución</th>
+                <th>CVU</th>
+                <th>Línea de investigación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reg in registros %}
+            <tr>
+                <td>{{ reg[0] }}</td>
+                <td>{{ reg[1] }}</td>
+                <td>{{ reg[2] }}</td>
+                <td>{{ reg[3] }}</td>
+                <td>{{ reg[4] }}</td>
+                <td>{{ reg[5] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/">⬅ Volver</a>
+</body>
+</html>
