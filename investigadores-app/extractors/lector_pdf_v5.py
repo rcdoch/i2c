@@ -19,7 +19,9 @@ def extraer_datos_pdf(path_pdf):
         "correo": extraer_email(texto),
         "institucion": buscar_posible_institucion(lineas),
         "linea_investigacion": buscar_valor_proximo(lineas, "LÍNEA", max_adelante=2),
-        "fecha_nacimiento": extraer_fecha_nacimiento(texto, lineas),  # Nuevo campo
+        "fecha_nacimiento": extraer_fecha_nacimiento(texto, lineas),
+        "puesto": extraer_puesto(lineas),  # Nuevo campo
+        "telefono": extraer_telefono(lineas),  # Nuevo campo
         "fecha_registro": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "nombre_archivo_pdf": path_pdf.split("/")[-1]
     }
@@ -107,6 +109,32 @@ def formatear_fecha(fecha):
         return fecha_obj.strftime("%Y-%m-%d")
     except ValueError:
         return "NO DETECTADO"
+
+def extraer_puesto(lineas):
+    # Busca el último puesto trabajado en las líneas
+    for linea in lineas:
+        if "PUESTO" in linea.upper():
+            partes = linea.split(":")
+            if len(partes) > 1:
+                return partes[1].strip()
+    return "NO DETECTADO"
+
+def extraer_telefono(lineas):
+    # Busca las etiquetas "MÓVIL PRINCIPAL" o "TELÉFONO PRINCIPAL" y extrae el número en las líneas siguientes
+    etiquetas = ["MÓVIL PRINCIPAL", "TELÉFONO PRINCIPAL"]
+    for i, linea in enumerate(lineas):
+        if any(etiqueta in linea.upper() for etiqueta in etiquetas):
+            # Busca en la línea siguiente si existe
+            if i + 1 < len(lineas):
+                # Extraer un número de 10 dígitos de la línea siguiente
+                posible_telefono = re.search(r'\b\d{10}\b', lineas[i + 1])
+                if posible_telefono:
+                    return posible_telefono.group(0)
+            # Si no está en la línea siguiente, intenta buscar en la misma línea
+            posible_telefono = re.search(r'\b\d{10}\b', linea)
+            if posible_telefono:
+                return posible_telefono.group(0)
+    return "NO DETECTADO"
 
 # ---------- VALIDACIONES ----------
 def validar_rfc(rfc):

@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 
 from db import guardar_en_bd
-from extractors.lector_pdf_v4 import extraer_datos_pdf
+from extractors.lector_pdf_v5 import extraer_datos_pdf
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -54,7 +54,10 @@ def registros():
     import sqlite3
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    c.execute("SELECT id, curp, nombre_completo, rfc, correo, institucion, no_cvu FROM investigadores")
+    c.execute("""
+        SELECT id, curp, nombre_completo, rfc, correo, institucion, no_cvu, fecha_nacimiento, puesto, telefono
+        FROM investigadores
+    """)  # Incluir puesto y teléfono
     datos = c.fetchall()
     conn.close()
     return render_template('registros.html', datos=datos)
