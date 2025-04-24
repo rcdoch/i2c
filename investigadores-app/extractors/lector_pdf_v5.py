@@ -17,11 +17,11 @@ def extraer_datos_pdf(path_pdf):
         "rfc": extraer_rfc(texto, lineas),
         "no_cvu": buscar_linea_valor(lineas, "NO.CVU"),
         "correo": extraer_email(texto),
-        "institucion": buscar_posible_institucion(lineas),
+        "empleo_actual": extraer_empleo_actual(lineas),  # Cambiado de "institucion" a "empleo_actual"
         "linea_investigacion": buscar_valor_proximo(lineas, "LÍNEA", max_adelante=2),
         "fecha_nacimiento": extraer_fecha_nacimiento(texto, lineas),
-        "puesto": extraer_puesto(lineas),  # Nuevo campo
-        "telefono": extraer_telefono(lineas),  # Nuevo campo
+        "puesto": extraer_puesto(lineas),
+        "telefono": extraer_telefono(lineas),
         "fecha_registro": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "nombre_archivo_pdf": path_pdf.split("/")[-1]
     }
@@ -134,6 +134,16 @@ def extraer_telefono(lineas):
             posible_telefono = re.search(r'\b\d{10}\b', linea)
             if posible_telefono:
                 return posible_telefono.group(0)
+    return "NO DETECTADO"
+
+def extraer_empleo_actual(lineas):
+    # Busca la sección "EMPLEO ACTUAL" y extrae el texto correspondiente
+    for i, linea in enumerate(lineas):
+        if "EMPLEO ACTUAL" in linea.upper():
+            # Busca en las líneas siguientes el texto del empleo actual
+            if i + 1 < len(lineas):
+                empleo = lineas[i + 1].strip()
+                return empleo
     return "NO DETECTADO"
 
 # ---------- VALIDACIONES ----------
