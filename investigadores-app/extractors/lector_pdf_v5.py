@@ -17,11 +17,11 @@ def extraer_datos_pdf(path_pdf):
         "rfc": extraer_rfc(texto, lineas),
         "no_cvu": buscar_linea_valor(lineas, "NO.CVU"),
         "correo": extraer_email(texto),
-        "empleo_actual": extraer_empleo_actual(lineas),  # Cambiado de "institucion" a "empleo_actual"
+        "institucion": buscar_posible_institucion(lineas),
         "linea_investigacion": buscar_valor_proximo(lineas, "LÍNEA", max_adelante=2),
         "fecha_nacimiento": extraer_fecha_nacimiento(texto, lineas),
-        "puesto": extraer_puesto(lineas),
-        "telefono": extraer_telefono(lineas),
+        "puesto": extraer_puesto(lineas),  # Nuevo campo
+        "telefono": extraer_telefono(lineas),  # Nuevo campo
         "fecha_registro": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "nombre_archivo_pdf": path_pdf.split("/")[-1]
     }
@@ -132,6 +132,7 @@ def extraer_telefono(lineas):
                 return posible_telefono.group(0)
     return "NO DETECTADO"
 
+<<<<<<< HEAD
 def extraer_empleo_actual(lineas):
     # Busca la sección "EMPLEO ACTUAL" y extrae el texto en negritas (mayúsculas) de la línea siguiente
     for i, linea in enumerate(lineas):
@@ -144,6 +145,8 @@ def extraer_empleo_actual(lineas):
                     return posible_empleo
     return "NO DETECTADO"
 
+=======
+>>>>>>> parent of 3b881f4 (Filtrado PDF)
 # ---------- VALIDACIONES ----------
 def validar_rfc(rfc):
     return bool(re.match(r'^[A-Z&Ñ]{3,4}\d{6}[A-Z0-9]{3}$', rfc))

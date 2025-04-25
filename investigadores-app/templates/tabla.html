@@ -20,12 +20,18 @@
                 <th>Empleo Actual</th>
                 <th>CVU</th>
                 <th>Fecha de Nacimiento</th>
+<<<<<<< HEAD
                 <th>Teléfono</th>
+=======
+                <th>Puesto</th> <!-- Nueva columna -->
+                <th>Teléfono</th> <!-- Nueva columna -->
+>>>>>>> parent of 3b881f4 (Filtrado PDF)
             </tr>
         </thead>
         <tbody>
             {% for reg in registros %}
             <tr>
+<<<<<<< HEAD
                 <td>{{ reg[0] }}</td> <!-- Nombre -->
                 <td>{{ reg[1] }}</td> <!-- CURP -->
                 <td>{{ reg[2] }}</td> <!-- Correo -->
@@ -33,6 +39,17 @@
                 <td>{{ reg[4] }}</td> <!-- CVU -->
                 <td>{{ reg[5] }}</td> <!-- Fecha de Nacimiento -->
                 <td>{{ reg[6] }}</td> <!-- Teléfono -->
+=======
+                <td>{{ reg[0] }}</td>
+                <td>{{ reg[1] }}</td>
+                <td>{{ reg[2] }}</td>
+                <td>{{ reg[3] }}</td>
+                <td>{{ reg[4] }}</td>
+                <td>{{ reg[5] }}</td>
+                <td>{{ reg[6] }}</td>
+                <td>{{ reg[7] }}</td> <!-- Mostrar puesto -->
+                <td>{{ reg[8] }}</td> <!-- Mostrar teléfono -->
+>>>>>>> parent of 3b881f4 (Filtrado PDF)
             </tr>
             {% endfor %}
         </tbody>
