@@ -87,14 +87,18 @@ def extraer_rfc(texto, lineas):
     return match.group(0) if match else "NO DETECTADO"
 
 def extraer_fecha_nacimiento(texto, lineas):
-    # Buscar fecha en formato común (YYYY-MM-DD, DD/MM/YYYY, DD-MM-YYYY)
-    patrones = [
-        r'\b\d{4}-\d{2}-\d{2}\b',  # Formato YYYY-MM-DD
-    ]
-    for patron in patrones:
-        match = re.search(patron, texto)
-        if match:
-            return match.group(0)  # Devuelve la fecha encontrada
+    # Buscar fecha de nacimiento en formato común (dd/mm/yyyy o dd-mm-yyyy)
+    match = re.search(r'\b(\d{2}[/-]\d{2}[/-]\d{4})\b', texto)
+    if match:
+        fecha = match.group(1)
+        return formatear_fecha(fecha)
+    # Buscar en líneas específicas
+    for linea in lineas:
+        if "FECHA DE NACIMIENTO" in linea.upper():
+            partes = linea.split(":")
+            if len(partes) > 1:
+                fecha = partes[1].strip()
+                return formatear_fecha(fecha)
     return "NO DETECTADO"
 
 def formatear_fecha(fecha):
@@ -134,15 +138,13 @@ def extraer_telefono(lineas):
 
 <<<<<<< HEAD
 def extraer_empleo_actual(lineas):
-    # Busca la sección "EMPLEO ACTUAL" y extrae el texto en negritas (mayúsculas) de la línea siguiente
+    # Busca la sección "EMPLEO ACTUAL" y extrae el texto correspondiente
     for i, linea in enumerate(lineas):
         if "EMPLEO ACTUAL" in linea.upper():
-            # Busca en la línea siguiente si existe
+            # Busca en las líneas siguientes el texto del empleo actual
             if i + 1 < len(lineas):
-                posible_empleo = lineas[i + 1].strip()
-                # Verifica que el texto esté en mayúsculas (indicativo de negritas en el PDF)
-                if posible_empleo.isupper():
-                    return posible_empleo
+                empleo = lineas[i + 1].strip()
+                return empleo
     return "NO DETECTADO"
 
 =======

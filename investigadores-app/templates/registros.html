@@ -14,27 +14,26 @@
             <th>Nombre</th>
             <th>RFC</th>
             <th>Correo</th>
-            <th>Empleo Actual</th> 
+            <th>Institución</th>
             <th>CVU</th>
             <th>Fecha de Nacimiento</th>
+<<<<<<< HEAD
 <<<<<<< HEAD
             <th>Teléfono</th>
 =======
             <th>Puesto</th> <!-- Nueva columna -->
             <th>Teléfono</th> <!-- Nueva columna -->
 >>>>>>> parent of 3b881f4 (Filtrado PDF)
+=======
+            <th>Empleo Actual</th> <!-- Nueva columna -->
+            <th>Teléfono</th> <!-- Nueva columna -->
+>>>>>>> parent of 0552a16 (Correciones)
         </tr>
         {% for fila in datos %}
         <tr>
-            <td>{{ fila[0] }}</td> <!-- ID -->
-            <td>{{ fila[1] }}</td> <!-- CURP -->
-            <td>{{ fila[2] }}</td> <!-- Nombre -->
-            <td>{{ fila[3] }}</td> <!-- RFC -->
-            <td>{{ fila[4] }}</td> <!-- Correo -->
-            <td>{{ fila[5] }}</td> <!-- Empleo Actual -->
-            <td>{{ fila[6] }}</td> <!-- CVU -->
-            <td>{{ fila[7] }}</td> <!-- Fecha de Nacimiento -->
-            <td>{{ fila[8] }}</td> <!-- Teléfono -->
+            {% for campo in fila %}
+            <td>{{ campo }}</td>
+            {% endfor %}
         </tr>
         {% endfor %}
     </table>
