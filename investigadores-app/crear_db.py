@@ -2,8 +2,7 @@ import sqlite3
 
 campos = [
     "curp", "nombre_completo", "rfc", "correo", "telefono", "no_cvu", "orcid", "nivel", "area",
-    "empleo_actual",  # Cambiado de "institucion" a "empleo_actual"
-    "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
+    "empleo_actual", "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
     "especialidad", "linea_investigacion", "sni", "anio_sni", "cv_conacyt", "experiencia_docente",
     "experiencia_laboral", "proyectos_investigacion", "proyectos_vinculacion", "patentes",
     "productos_cientificos", "productos_tecnologicos", "productos_humanisticos", "libros",
