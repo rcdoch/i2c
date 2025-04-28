@@ -2,16 +2,7 @@ import sqlite3
 
 campos = [
     "curp", "nombre_completo", "rfc", "correo", "telefono", "no_cvu", "orcid", "nivel", "area",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "empleo_actual", "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
-=======
     "institucion", "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
->>>>>>> parent of 3b881f4 (Filtrado PDF)
-=======
-    "empleo_actual",  # Cambiado de "institucion" a "empleo_actual"
-    "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
->>>>>>> parent of 0552a16 (Correciones)
     "especialidad", "linea_investigacion", "sni", "anio_sni", "cv_conacyt", "experiencia_docente",
     "experiencia_laboral", "proyectos_investigacion", "proyectos_vinculacion", "patentes",
     "productos_cientificos", "productos_tecnologicos", "productos_humanisticos", "libros",
@@ -23,7 +14,7 @@ campos = [
     "vinculacion_sector_social", "vinculacion_sector_publico", "participacion_politicas_publicas",
     "impacto_social", "propuesta_linea_trabajo", "documentacion_completa", "archivo_pdf", "observaciones",
     "genero", "fecha_nacimiento", "estado_nacimiento", "municipio", "domicilio", "cp", "entidad_federativa",
-    "cv_ligado_orcid", "orcid_verificado", "fecha_registro", "nombre_archivo_pdf", "puesto"  # Nuevos campos
+    "cv_ligado_orcid", "orcid_verificado", "fecha_registro", "nombre_archivo_pdf"
 ]
 
 conn = sqlite3.connect("database.db")
@@ -42,4 +33,4 @@ c.execute(query)
 conn.commit()
 conn.close()
 
-print("🧱 Base de datos creada con 72 campos.")
+print("🧱 Base de datos creada con 70 campos.")
