@@ -19,6 +19,8 @@ def extraer_datos_pdf(path_pdf):
         "correo": extraer_email(texto),
         "institucion": buscar_posible_institucion(lineas),
         "linea_investigacion": buscar_valor_proximo(lineas, "LÍNEA", max_adelante=2),
+        "nacionalidad": extraer_nacionalidad(texto, lineas),
+        "fecha_nacimiento": extraer_fecha_nacimiento(texto, lineas),  # Nuevo campo
         "fecha_registro": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "nombre_archivo_pdf": path_pdf.split("/")[-1]
     }
@@ -82,6 +84,51 @@ def extraer_rfc(texto, lineas):
 
     match = re.search(r'\b[A-Z&Ñ]{3,4}\d{6}[A-Z0-9]{3}\b', texto)
     return match.group(0) if match else "NO DETECTADO"
+
+def extraer_nacionalidad(texto, lineas):
+    # Buscar nacionalidad en líneas específicas
+    for linea in lineas:
+        if "NACIONALIDAD" in linea.upper():
+            partes = linea.split(":")
+            if len(partes) > 1:
+                return partes[1].strip()
+    # Si no se encuentra, buscar palabras clave comunes
+    claves_nacionalidad = ["MEXICANA", "ESTADOUNIDENSE", "CANADIENSE", "ESPAÑOLA", "ARGENTINA"]
+    for clave in claves_nacionalidad:
+        if clave in texto.upper():
+            return clave.capitalize()
+    return "NO DETECTADO"
+
+def extraer_fecha_nacimiento(texto, lineas):
+    # Buscar fecha en formato año-mes-día (YYYY-MM-DD)
+    match = re.search(r'\b(\d{4}-\d{2}-\d{2})\b', texto)
+    if match:
+        return match.group(1)  # Ya está en el formato correcto
+
+    # Buscar fecha en formatos comunes (dd/mm/yyyy o dd-mm-yyyy)
+    match = re.search(r'\b(\d{2}[/-]\d{2}[/-]\d{4})\b', texto)
+    if match:
+        fecha = match.group(1)
+        return formatear_fecha(fecha)
+
+    # Buscar en líneas específicas que contengan "FECHA DE NACIMIENTO"
+    for linea in lineas:
+        if "FECHA DE NACIMIENTO" in linea.upper():
+            partes = linea.split(":")
+            if len(partes) > 1:
+                fecha = partes[1].strip()
+                return formatear_fecha(fecha)
+
+    return "NO DETECTADO"
+
+def formatear_fecha(fecha):
+    try:
+        # Detectar el delimitador y convertir al formato YYYY-MM-DD
+        delimitador = "/" if "/" in fecha else "-"
+        fecha_obj = datetime.strptime(fecha, f"%d{delimitador}%m{delimitador}%Y")
+        return fecha_obj.strftime("%Y-%m-%d")  # Formato año-mes-día
+    except ValueError:
+        return "NO DETECTADO"
 
 # ---------- VALIDACIONES ----------
 def validar_rfc(rfc):

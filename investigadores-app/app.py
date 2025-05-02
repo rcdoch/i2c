@@ -55,12 +55,26 @@ def registros():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute("""
-        SELECT id, no_cvu, curp, nombre_completo, rfc, correo
+        SELECT id, no_cvu, curp, nombre_completo, rfc, correo, nacionalidad, fecha_nacimiento
         FROM investigadores
     """)
     datos = c.fetchall()
     conn.close()
     return render_template('registros.html', datos=datos)
+
+@app.route('/incompletos')
+def incompletos():
+    import sqlite3
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute("""
+        SELECT id, no_cvu, nombre_completo, curp, rfc, correo, nacionalidad, fecha_nacimiento
+        FROM investigadores
+        WHERE curp = 'NO DETECTADO'
+    """)
+    registros = c.fetchall()
+    conn.close()
+    return render_template('incompletos.html', registros=registros)
 
 if __name__ == '__main__':
     app.run(debug=True)

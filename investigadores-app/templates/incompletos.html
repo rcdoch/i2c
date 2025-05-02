@@ -14,6 +14,8 @@
             <th>Nombre Completo</th>
             <th>RFC</th>
             <th>Correo</th>
+            <th>Nacionalidad</th>
+            <th>Fecha de Nacimiento</th>
         </tr>
         {% for r in registros %}
         <tr>
@@ -23,6 +25,8 @@
             <td>{{ r[2] }}</td> <!-- Nombre Completo -->
             <td>{{ r[4] }}</td> <!-- RFC -->
             <td>{{ r[5] }}</td> <!-- Correo -->
+            <td>{{ r[6] }}</td> <!-- Nacionalidad -->
+            <td>{{ r[7] }}</td> <!-- Fecha de Nacimiento -->
         </tr>
         {% endfor %}
     </table>
