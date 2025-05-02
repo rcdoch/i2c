@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar datos del investigador</title>
+</head>
+<body>
+    <h1>Verificar y editar datos extraídos</h1>
+    <form action="/guardar" method="POST">
+        <label>Nombre completo:</label><br>
+        <input type="text" name="nombre_completo" value="{{ datos.nombre_completo }}"><br><br>
+
+        <label>CURP:</label><br>
+        <input type="text" name="curp" value="{{ datos.curp }}"><br><br>
+
+        <label>RFC:</label><br>
+        <input type="text" name="rfc" value="{{ datos.rfc }}"><br><br>
+
+        <label>Correo:</label><br>
+        <input type="email" name="correo" value="{{ datos.correo }}"><br><br>
+
+        <label>Institución:</label><br>
+        <input type="text" name="institucion" value="{{ datos.institucion }}"><br><br>
+
+        <label>CVU:</label><br>
+        <input type="text" name="no_cvu" value="{{ datos.no_cvu }}"><br><br>
+
+        <label>Línea de investigación:</label><br>
+        <input type="text" name="linea_investigacion" value="{{ datos.linea_investigacion }}"><br><br>
+
+        <button type="submit">Guardar en base de datos</button>
+    </form>
+    <br>
+    <a href="/">⬅ Cancelar</a>
+</body>
+</html>

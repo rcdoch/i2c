@@ -6,10 +6,11 @@
 </head>
 <body>
     <h1>Sube tu Perfil Único (PDF)</h1>
-    <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" multiple required>
-    <button type="submit">Subir PDF(s)</button>
-</form>
+
+    <form method="POST" action="/verificar" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/pdf" required>
+        <button type="submit">Procesar PDF</button>
+    </form>
 
     {% if mensaje %}
         <p>{{ mensaje }}</p>
