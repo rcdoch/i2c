@@ -6,8 +6,6 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-# merger # 
-
 # ---------- FLUJO PRINCIPAL ----------
 def extraer_datos_pdf(path_pdf):
     texto = extraer_texto(path_pdf)
