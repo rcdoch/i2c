@@ -55,9 +55,9 @@ def registros():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute("""
-        SELECT id, curp, nombre_completo, rfc, correo, institucion, no_cvu, fecha_nacimiento, puesto, telefono
+        SELECT id, no_cvu, curp, nombre_completo, rfc, correo
         FROM investigadores
-    """)  # Incluir puesto y teléfono
+    """)
     datos = c.fetchall()
     conn.close()
     return render_template('registros.html', datos=datos)

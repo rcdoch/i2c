@@ -16,25 +16,21 @@
             <tr>
                 <th>ID</th>
                 <th>CVU</th>
-                <th>Nombre Completo</th>
                 <th>CURP</th>
+                <th>Nombre Completo</th>
                 <th>RFC</th>
                 <th>Correo</th>
-                <th>Institución</th>
-                <th>Empleo</th>
             </tr>
         </thead>
         <tbody>
             {% for reg in registros %}
             <tr>
                 <td>{{ reg[0] }}</td> <!-- ID -->
-                <td>{{ reg[1] }}</td> <!-- CVU -->
+                <td>{{ reg[6] }}</td> <!-- CVU -->
+                <td>{{ reg[1] }}</td> <!-- CURP -->
                 <td>{{ reg[2] }}</td> <!-- Nombre Completo -->
-                <td>{{ reg[3] }}</td> <!-- CURP -->
-                <td>{{ reg[4] }}</td> <!-- RFC -->
-                <td>{{ reg[5] }}</td> <!-- Correo -->
-                <td>{{ reg[6] }}</td> <!-- Institución -->
-                <td>{{ reg[7] }}</td> <!-- Empleo -->
+                <td>{{ reg[3] }}</td> <!-- RFC -->
+                <td>{{ reg[4] }}</td> <!-- Correo -->
             </tr>
             {% endfor %}
         </tbody>
