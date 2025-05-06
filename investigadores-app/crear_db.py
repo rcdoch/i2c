@@ -14,7 +14,8 @@ campos = [
     "vinculacion_sector_social", "vinculacion_sector_publico", "participacion_politicas_publicas",
     "impacto_social", "propuesta_linea_trabajo", "documentacion_completa", "archivo_pdf", "observaciones",
     "genero", "estado_nacimiento", "municipio", "domicilio", "cp", "entidad_federativa",
-    "cv_ligado_orcid", "orcid_verificado", "fecha_registro", "nombre_archivo_pdf"
+    "cv_ligado_orcid", "orcid_verificado", "fecha_registro", "nombre_archivo_pdf",
+    "empleo_actual"
 ]
 
 conn = sqlite3.connect("database.db")
@@ -33,4 +34,4 @@ c.execute(query)
 conn.commit()
 conn.close()
 
-print("🧱 Base de datos creada con 70 campos.")
+print("🧱 Base de datos creada con 71 campos.")

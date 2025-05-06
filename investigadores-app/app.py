@@ -55,7 +55,7 @@ def registros():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute("""
-        SELECT id, no_cvu, curp, nombre_completo, rfc, correo, nacionalidad, fecha_nacimiento
+        SELECT id, no_cvu, curp, nombre_completo, rfc, correo, nacionalidad, fecha_nacimiento, empleo_actual
         FROM investigadores
     """)
     datos = c.fetchall()
@@ -68,7 +68,7 @@ def incompletos():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute("""
-        SELECT id, no_cvu, nombre_completo, curp, rfc, correo, nacionalidad, fecha_nacimiento
+        SELECT id, no_cvu, nombre_completo, curp, rfc, correo, nacionalidad, fecha_nacimiento, empleo_actual
         FROM investigadores
         WHERE curp = 'NO DETECTADO'
     """)

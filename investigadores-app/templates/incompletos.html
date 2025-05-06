@@ -16,6 +16,7 @@
             <th>Correo</th>
             <th>Nacionalidad</th>
             <th>Fecha de Nacimiento</th>
+            <th>Empleo Actual</th> <!-- Nueva columna -->
         </tr>
         {% for r in registros %}
         <tr>
@@ -27,6 +28,7 @@
             <td>{{ r[5] }}</td> <!-- Correo -->
             <td>{{ r[6] }}</td> <!-- Nacionalidad -->
             <td>{{ r[7] }}</td> <!-- Fecha de Nacimiento -->
+            <td>{{ r[8] }}</td> <!-- Empleo Actual -->
         </tr>
         {% endfor %}
     </table>
