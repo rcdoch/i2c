@@ -132,11 +132,12 @@ def formatear_fecha(fecha):
         return "NO DETECTADO"
 
 def extraer_empleo_actual(lineas):
-    for linea in lineas:
+    for i, linea in enumerate(lineas):
         if "EMPLEO ACTUAL" in linea.upper():
-            partes = linea.split(":")
-            if len(partes) > 1:
-                return partes[1].strip()
+            if i + 1 < len(lineas):  # Verifica que exista una línea siguiente
+                posible_empleo = lineas[i + 1].strip()
+                if posible_empleo.isupper():  # Verifica si está en mayúsculas (negritas en PDF suelen ser mayúsculas)
+                    return posible_empleo
     return "NO DETECTADO"
 
 # ---------- VALIDACIONES ----------
