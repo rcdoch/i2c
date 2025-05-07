@@ -54,7 +54,10 @@ def extraer_texto_ocr(path_pdf):
         texto_final = f"OCR_FAILED: {e}"
     return texto_final
 
-# ---------- EXTRACTORES ----------
+# ---------- FUNCIONES EXTRACTORES ---------- #
+
+
+# --------- Extraer Nombre Completo ---------
 def extraer_nombre_contextual(lineas):
     puestos_clave = ["TÉCNICO", "INVESTIGADOR", "TITULAR", "ASOCIADO", "ENLACE", "DOCENTE", "COORDINADOR", "PRESTADOR", "SERVICIOS", "TIEMPO COMPLETO"]
     for i, linea in enumerate(lineas):
@@ -68,6 +71,8 @@ def extraer_nombre_contextual(lineas):
                             return formatear_nombre(posible)
     return "NO DETECTADO"
 
+
+# --------- Extraer CURP y RFC ---------
 def extraer_curp_regex(texto):
     match = re.search(r'\b([A-Z]{4}\d{6}[HM][A-Z]{5}[0-9A-Z]\d)\b', texto)
     return match.group(1) if match else "NO DETECTADO"
@@ -86,6 +91,9 @@ def extraer_rfc(texto, lineas):
     match = re.search(r'\b[A-Z&Ñ]{3,4}\d{6}[A-Z0-9]{3}\b', texto)
     return match.group(0) if match else "NO DETECTADO"
 
+
+
+# --------- Extraer Nacionalidad ---------
 def extraer_nacionalidad(texto, lineas):
     # Buscar nacionalidad en líneas específicas
     for linea in lineas:
@@ -100,6 +108,9 @@ def extraer_nacionalidad(texto, lineas):
             return clave.capitalize()
     return "NO DETECTADO"
 
+
+
+# --------- Extraer Fecha de Nacimiento ---------
 def extraer_fecha_nacimiento(texto, lineas):
     # Buscar fecha en formato año-mes-día (YYYY-MM-DD)
     match = re.search(r'\b(\d{4}-\d{2}-\d{2})\b', texto)
@@ -122,6 +133,9 @@ def extraer_fecha_nacimiento(texto, lineas):
 
     return "NO DETECTADO"
 
+
+
+# --------- Fecha de nacimiento ---------
 def formatear_fecha(fecha):
     try:
         # Detectar el delimitador y convertir al formato YYYY-MM-DD
@@ -131,6 +145,9 @@ def formatear_fecha(fecha):
     except ValueError:
         return "NO DETECTADO"
 
+
+
+# --------- Extraer Empleo Actual ---------
 def extraer_empleo_actual(lineas):
     for i, linea in enumerate(lineas):
         if "EMPLEO ACTUAL" in linea.upper():
@@ -139,6 +156,10 @@ def extraer_empleo_actual(lineas):
                 if posible_empleo.isupper():  # Verifica si está en mayúsculas (negritas en PDF suelen ser mayúsculas)
                     return posible_empleo
     return "NO DETECTADO"
+
+
+
+
 
 # ---------- VALIDACIONES ----------
 def validar_rfc(rfc):
