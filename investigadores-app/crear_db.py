@@ -2,7 +2,7 @@ import sqlite3
 
 campos = [
     "curp", "nombre_completo", "rfc", "correo", "telefono", "no_cvu", "orcid", "nivel", "area",
-    "institucion", "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
+    "institucion", "nacionalidad", "fecha_nacimiento", "grado_maximo_estudios", "titulo_tesis", "anio_grado", "pais_grado", "disciplina",
     "especialidad", "linea_investigacion", "sni", "anio_sni", "cv_conacyt", "experiencia_docente",
     "experiencia_laboral", "proyectos_investigacion", "proyectos_vinculacion", "patentes",
     "productos_cientificos", "productos_tecnologicos", "productos_humanisticos", "libros",
@@ -13,8 +13,9 @@ campos = [
     "colaboracion_nacional", "divulgacion_cientifica", "otros_logros", "vinculacion_sector_productivo",
     "vinculacion_sector_social", "vinculacion_sector_publico", "participacion_politicas_publicas",
     "impacto_social", "propuesta_linea_trabajo", "documentacion_completa", "archivo_pdf", "observaciones",
-    "genero", "fecha_nacimiento", "estado_nacimiento", "municipio", "domicilio", "cp", "entidad_federativa",
-    "cv_ligado_orcid", "orcid_verificado", "fecha_registro", "nombre_archivo_pdf"
+    "genero", "estado_nacimiento", "municipio", "domicilio", "cp", "entidad_federativa",
+    "cv_ligado_orcid", "orcid_verificado", "fecha_registro", "nombre_archivo_pdf",
+    "empleo_actual"
 ]
 
 conn = sqlite3.connect("database.db")
@@ -33,4 +34,4 @@ c.execute(query)
 conn.commit()
 conn.close()
 
-print("🧱 Base de datos creada con 70 campos.")
+print("🧱 Base de datos creada con 71 campos.")

@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 
 from db import guardar_en_bd
-from extractors.lector_pdf_v4 import extraer_datos_pdf
+from extractors.lector_pdf_v5 import extraer_datos_pdf
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -54,10 +54,27 @@ def registros():
     import sqlite3
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    c.execute("SELECT id, curp, nombre_completo, rfc, correo, institucion, no_cvu FROM investigadores")
+    c.execute("""
+        SELECT id, no_cvu, curp, nombre_completo, rfc, correo, nacionalidad, fecha_nacimiento, empleo_actual
+        FROM investigadores
+    """)
     datos = c.fetchall()
     conn.close()
     return render_template('registros.html', datos=datos)
+
+@app.route('/incompletos')
+def incompletos():
+    import sqlite3
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute("""
+        SELECT id, no_cvu, nombre_completo, curp, rfc, correo, nacionalidad, fecha_nacimiento, empleo_actual
+        FROM investigadores
+        WHERE curp = 'NO DETECTADO'
+    """)
+    registros = c.fetchall()
+    conn.close()
+    return render_template('incompletos.html', registros=registros)
 
 if __name__ == '__main__':
     app.run(debug=True)

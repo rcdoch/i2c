@@ -14,23 +14,29 @@
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>CURP</th>
-                <th>Correo</th>
-                <th>Institución</th>
+                <th>ID</th>
                 <th>CVU</th>
-                <th>Línea de investigación</th>
+                <th>CURP</th>
+                <th>Nombre Completo</th>
+                <th>RFC</th>
+                <th>Correo</th>
+                <th>Nacionalidad</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Empleo Actual</th>
             </tr>
         </thead>
         <tbody>
             {% for reg in registros %}
             <tr>
-                <td>{{ reg[0] }}</td>
-                <td>{{ reg[1] }}</td>
-                <td>{{ reg[2] }}</td>
-                <td>{{ reg[3] }}</td>
-                <td>{{ reg[4] }}</td>
-                <td>{{ reg[5] }}</td>
+                <td>{{ reg[0] }}</td> <!-- ID -->
+                <td>{{ reg[6] }}</td> <!-- CVU -->
+                <td>{{ reg[1] }}</td> <!-- CURP -->
+                <td>{{ reg[2] }}</td> <!-- Nombre Completo -->
+                <td>{{ reg[3] }}</td> <!-- RFC -->
+                <td>{{ reg[4] }}</td> <!-- Correo -->
+                <td>{{ reg[7] }}</td> <!-- Nacionalidad -->
+                <td>{{ reg[8] }}</td> <!-- Fecha de Nacimiento -->
+                <td>{{ reg[9] }}</td> <!-- Empleo Actual -->
             </tr>
             {% endfor %}
         </tbody>

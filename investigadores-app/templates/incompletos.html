@@ -8,15 +8,27 @@
     <h2>Registros sin CURP detectado</h2>
     <table border="1">
         <tr>
-            <th>Nombre</th>
+            <th>ID</th>
+            <th>CVU</th>
             <th>CURP</th>
+            <th>Nombre Completo</th>
+            <th>RFC</th>
             <th>Correo</th>
+            <th>Nacionalidad</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Empleo Actual</th> <!-- Nueva columna -->
         </tr>
         {% for r in registros %}
         <tr>
-            <td>{{ r[0] }}</td>
-            <td>{{ r[1] }}</td>
-            <td>{{ r[2] }}</td>
+            <td>{{ r[0] }}</td> <!-- ID -->
+            <td>{{ r[1] }}</td> <!-- CVU -->
+            <td>{{ r[3] }}</td> <!-- CURP -->
+            <td>{{ r[2] }}</td> <!-- Nombre Completo -->
+            <td>{{ r[4] }}</td> <!-- RFC -->
+            <td>{{ r[5] }}</td> <!-- Correo -->
+            <td>{{ r[6] }}</td> <!-- Nacionalidad -->
+            <td>{{ r[7] }}</td> <!-- Fecha de Nacimiento -->
+            <td>{{ r[8] }}</td> <!-- Empleo Actual -->
         </tr>
         {% endfor %}
     </table>
