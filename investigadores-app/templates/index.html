@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Perfil Único</title>
+</head>
+<body>
+    <h1>Sube tu Perfil Único (PDF)</h1>
+
+    <form method="POST" action="/verificar" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/pdf" required>
+        <button type="submit">Procesar PDF</button>
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+
+    <p><a href="/registros">Ver registros guardados</a></p>
+</body>
+</html>

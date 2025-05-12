@@ -19,6 +19,7 @@ def extraer_datos_pdf(path_pdf):
         "correo": extraer_email(texto),
         "institucion": buscar_posible_institucion(lineas),
         "linea_investigacion": buscar_valor_proximo(lineas, "LÍNEA", max_adelante=2),
+        "fecha_nacimiento": extraer_fecha_nacimiento(texto, lineas),  # Nuevo campo
         "fecha_registro": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "nombre_archivo_pdf": path_pdf.split("/")[-1]
     }
@@ -83,6 +84,30 @@ def extraer_rfc(texto, lineas):
     match = re.search(r'\b[A-Z&Ñ]{3,4}\d{6}[A-Z0-9]{3}\b', texto)
     return match.group(0) if match else "NO DETECTADO"
 
+def extraer_fecha_nacimiento(texto, lineas):
+    # Buscar fecha de nacimiento en formato común (dd/mm/yyyy o dd-mm-yyyy)
+    match = re.search(r'\b(\d{2}[/-]\d{2}[/-]\d{4})\b', texto)
+    if match:
+        fecha = match.group(1)
+        return formatear_fecha(fecha)
+    # Buscar en líneas específicas
+    for linea in lineas:
+        if "FECHA DE NACIMIENTO" in linea.upper():
+            partes = linea.split(":")
+            if len(partes) > 1:
+                fecha = partes[1].strip()
+                return formatear_fecha(fecha)
+    return "NO DETECTADO"
+
+def formatear_fecha(fecha):
+    try:
+        # Detectar el delimitador y convertir al formato YYYY-MM-DD
+        delimitador = "/" if "/" in fecha else "-"
+        fecha_obj = datetime.strptime(fecha, f"%d{delimitador}%m{delimitador}%Y")
+        return fecha_obj.strftime("%Y-%m-%d")
+    except ValueError:
+        return "NO DETECTADO"
+
 # ---------- VALIDACIONES ----------
 def validar_rfc(rfc):
     return bool(re.match(r'^[A-Z&Ñ]{3,4}\d{6}[A-Z0-9]{3}$', rfc))
@@ -105,7 +130,12 @@ def extraer_email(texto):
     return match.group(0) if match else "NO DETECTADO"
 
 def buscar_posible_institucion(lineas):
-    claves = ["CIMAV", "UACH", "IPN", "UNAM", "COLECH", "TECNOLÓGICO", "UNIVERSIDAD"],
+    claves = ["CIMAV", "UACH", "IPN", "UNAM", "COLECH", "TECNOLÓGICO", "UNIVERSIDAD", "INSTITUTO", "CENTRO"]
+    for linea in reversed(lineas):  # Recorremos las líneas en orden inverso
+        for clave in claves:
+            if clave in linea.upper():
+                return linea.strip()
+    return "NO DETECTADO"
 
 def buscar_valor_proximo(lineas, etiqueta, max_adelante=2):
     for i, linea in enumerate(lineas):
